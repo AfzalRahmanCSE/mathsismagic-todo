@@ -1,0 +1,33 @@
+name: mathsismagic-todo
+on:
+ push:
+  branches:
+   - main
+ pull_request:
+  branches:
+   - main
+jobs:
+ build:
+  runs-on: ubuntu-latest
+  steps:
+    - name: checkout the files 
+      uses: actions/checkout@v3
+    - name: Setting nodejs Environment
+      uses: actions/setup-node@v3.3.0
+     
+    - name: npm install and npm build
+      run: |
+        npm install
+        pwd
+        
+    - name: parent working directory
+      run: pwd
+        
+    - name: copy Build files to EC2
+      uses: garygrossgarten/github-action-scp@release
+      with: 
+       local: /home/runner/work/mathsismagic-todo/mathsismagic-todo
+       remote: /var/www/html/
+       host: 54.172.56.28  
+       username: ubuntu
+       password: 687347

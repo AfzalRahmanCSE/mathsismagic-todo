@@ -14,7 +14,19 @@ app.use(cors())
 app.get('/api/v1/health',(req,res)=>{
     res.send({status:'Up'})
 })
-app.use('/api/v1',auth)
+app.use('/api/v1/users',auth)
+
+app.use('*',(req,res)=>{
+    res.status(404).json({error:'Page Not Found'})
+})
+
+app.use((err, req, res, next) => {
+	res.status(err.status || 500).json({
+		status: err.status || 'error',
+		message: err.message,
+	});
+});
+
 
 
 

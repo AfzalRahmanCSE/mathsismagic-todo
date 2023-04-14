@@ -1,9 +1,10 @@
-const express=require('express')
+const express=require('express');
+const { getAllUsers,registerUser } = require('../controllers/authController');
 const router=express.Router()
 
-router.route('/users')
-.get((req,res,next)=>{
-    res.status(200).json({message:'All users list soon'})
-})
+router.route('/')
+.get(getAllUsers)
 
+router.route('/signup')
+.post(registerUser)
 module.exports=router;
